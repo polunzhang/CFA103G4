@@ -1,0 +1,8 @@
+div.banner_bg{
+  background-image: url("../../images/banner.jpg");
+  background-repeat: no-repeat;
+  height: 268px;
+  min-width: 768px;
+  background-size: cover;
+  background-position: center center;
+}

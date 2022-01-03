@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="./css/contact.css">
+  </head>
+  <body>
+    <header class="header">
+      <a href="./index.html" class="logo_img"><img src="./images/logo_img.png"></a>
+      <nav class="nav">
+        <ul class="link_list">
+          <li><a href="./index.html">關於我</a></li>
+          <li><a href="./contact.html" class="-on">與我聯繫</a></li>
+          <li>
+            <div class="social_block">
+              社群連結
+              <ul class="social_list">
+                <li>
+                  <a href="#">FB</a>
+                </li>
+                <li>
+                  <a href="#">Twitter</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="banner_bg"></div>
+
+    <main class="main">
+      <h1 class="title1">與我聯繫</h1>
+
+      <form class="the_form" action="#" method="post">
+
+        <div class="item_block">
+          <label>Email：</label>
+          <input type="text" placeholder="請輸入 Email">
+        </div>
+
+        <div class="item_block">
+          <label>希望回覆時間：</label>
+          <div class="reply_block">
+
+            <div class="radio_block">
+              <input type="radio" id="morning" name="reply_time" checked>
+              <label for="morning">上午</label>
+            </div>
+
+            <div class="radio_block">
+              <input type="radio" id="afternoon" name="reply_time">
+              <label for="afternoon">下午</label>
+            </div>
+
+            <div class="radio_block">
+              <input type="radio" id="night" name="reply_time">
+              <label for="night">晚上</label>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="item_block">
+          <label>事項：</label>
+          <textarea class="notes"></textarea>
+        </div>
+
+        <div class="item_block">
+          <label></label>
+          <button type="submit" class="btn_submit">資料送出</button>
+        </div>
+
+      </form>
+
+    </main>
+
+    <footer class="footer">
+      &copy; All Rights Reserved
+    </footer>
+
+  </body>
+</html>

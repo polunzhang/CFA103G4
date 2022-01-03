@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	<display-name>CFA103_G4</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<resource-ref>
+		<description>DB Connection</description>
+		<res-ref-name>jdbc/CFA103_G4</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+
+	<!-- ======================= 珀綸 ======================= -->
+	<servlet>
+		<servlet-name>LiveOrderServlet</servlet-name>
+		<servlet-class>com.live_order.controller.LiveOrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LiveOrderServlet</servlet-name>
+		<url-pattern>/order/liveOrder.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LiveOrderServlet2</servlet-name>
+		<servlet-class>com.live_order.controller.LiveOrderServlet2</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LiveOrderServlet2</servlet-name>
+		<url-pattern>/order/liveOrder2.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>MealStatusChange</servlet-name>
+		<servlet-class>com.live_order.controller.MealStatusChange</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MealStatusChange</servlet-name>
+		<url-pattern>/order/MealStatusChange.do</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- ======================= 黃捷 ======================= -->
+	<servlet>
+		<servlet-name>NewsServlet</servlet-name>
+		<servlet-class>com.news.controller.NewsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NewsServlet</servlet-name>
+		<url-pattern>/back-end/news/news.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>NameServlet</servlet-name>
+		<servlet-class>com.chat.controller.NameServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NameServlet</servlet-name>
+		<url-pattern>/chat.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- ======================= 兆彣 ======================= -->
+	<servlet>
+		<servlet-name>OnlineOrderServlet</servlet-name>
+		<servlet-class>com.online_order.controller.OnlineOrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OnlineOrderServlet</servlet-name>
+		<url-pattern>/back-end/online_order/onlineOrder.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>OnlineDetailServlet</servlet-name>
+		<servlet-class>com.online_detail.controller.OnlineDetailServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OnlineDetailServlet</servlet-name>
+		<url-pattern>/back-end/online_detail/onlineDetail.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>MealTypeServlet</servlet-name>
+		<servlet-class>com.meal_type.controller.MealTypeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MealTypeServlet</servlet-name>
+		<url-pattern>/back-end/meal_type/mealType.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ShoppingSystemServlet</servlet-name>
+		<servlet-class>com.shopping_system.controller.ShoppingSystemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShoppingSystemServlet</servlet-name>
+		<url-pattern>/front-end/shopping_system/shoppingSystem.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Checkout2</servlet-name>
+		<servlet-class>com.shopping_system.controller.Checkout2</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Checkout2</servlet-name>
+		<url-pattern>/front-end/shopping_system/Checkout2.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- ======================= 嘉翎 ======================= -->
+	<servlet>
+		<servlet-name>TableServlet</servlet-name>
+		<servlet-class>com.table.controller.TableServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TableServlet</servlet-name>
+		<url-pattern>/back-end/table/table.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CheckoutServlet</servlet-name>
+		<servlet-class>com.live_order.controller.CheckoutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CheckoutServlet</servlet-name>
+		<url-pattern>/back-end/checkout/checkout.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- ======================= 彥儒 ======================= -->
+
+	<servlet>
+		<servlet-name>MealServlet</servlet-name>
+		<servlet-class>com.meal.controller.MealServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MealServlet</servlet-name>
+		<url-pattern>/meal/meal.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PromServlet</servlet-name>
+		<servlet-class>com.prom.controller.PromServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PromServlet</servlet-name>
+		<url-pattern>/prom/prom.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PromDetailServlet</servlet-name>
+		<servlet-class>com.prom_detail.controller.PromDetailServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PromDetailServlet</servlet-name>
+		<url-pattern>/promdetail/promdetail.do</url-pattern>
+	</servlet-mapping>
+	
+
+
+	<!-- ======================= 睿希 ======================= -->
+	<servlet>
+		<servlet-name>EmpServlet</servlet-name>
+		<servlet-class>com.emp.controller.EmpServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>EmpServlet</servlet-name>
+		<url-pattern>/back-end/emp/emp.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EmperServlet</servlet-name>
+		<servlet-class>com.emper.controller.EmperServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>EmperServlet</servlet-name>
+		<url-pattern>/back-end/emper/emper.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EmperDetailServlet</servlet-name>
+		<servlet-class>com.emperDetail.controller.EmperDetailServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>EmperDetailServlet</servlet-name>
+		<url-pattern>/back-end/emperDetail/emperDetail.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EmpLoginServlet</servlet-name>
+		<servlet-class>com.empLogin.controller.EmpLoginServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>EmpLoginServlet</servlet-name>
+		<url-pattern>/back-end/empLogin/empLogin.do</url-pattern>
+	</servlet-mapping>
+
+
+
+	<!-- 濾器 -->
+	<filter>
+		<filter-name>LoginFilter</filter-name>
+		<filter-class>filters.LoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/back-end/emp/*</url-pattern>
+		<url-pattern>/back-end/emper/*</url-pattern>
+		<url-pattern>/back-end/emperDetail/*</url-pattern>
+		<url-pattern>/back-end/live_order/*</url-pattern>
+		<url-pattern>/back-end/meal/*</url-pattern>
+		<url-pattern>/back-end/meal_pic/*</url-pattern>
+		<url-pattern>/back-end/meal_type/*</url-pattern>
+		<url-pattern>/back-end/mem/*</url-pattern>
+		<url-pattern>/back-end/member/*</url-pattern>
+		<url-pattern>/back-end/news/*</url-pattern>
+		<url-pattern>/back-end/online_detail/*</url-pattern>
+		<url-pattern>/back-end/online_order/*</url-pattern>
+		<url-pattern>/back-end/shopping_system/*</url-pattern>
+		<url-pattern>/back-end/table/*</url-pattern>
+		<url-pattern>/back-end/back-end-home.jsp</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>KitchenFilter</filter-name>
+		<filter-class>filters.KitchenFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>KitchenFilter</filter-name>
+		<url-pattern>/back-end/emp/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>WaiterFilter</filter-name>
+		<filter-class>filters.WaiterFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>WaiterFilter</filter-name>
+		<url-pattern>/back-end//*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>DeliveryFilter</filter-name>
+		<filter-class>filters.DeliveryFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>DeliveryFilter</filter-name>
+		<url-pattern>/back-end//*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>CounterFilter</filter-name>
+		<filter-class>filters.CounterFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CounterFilter</filter-name>
+		<url-pattern>/back-end//*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>AdminFilter</filter-name>
+		<filter-class>filters.AdminFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AdminFilter</filter-name>
+		<url-pattern>/back-end//*</url-pattern>
+	</filter-mapping>
+
+
+	<!-- ======================= 曾浩 ======================= -->
+	<servlet>
+		<servlet-name>MemberServlet</servlet-name>
+		<servlet-class>com.member.controller.MemberServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MemberServlet</servlet-name>
+		<url-pattern>/back-end/member/MemberServlet.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SignServlet</servlet-name>
+		<servlet-class>com.member.controller.MemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SignServlet</servlet-name>
+		<url-pattern>/front-end/member/MemberServlet.do</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<filter-name>MemberLoginFilter</filter-name>
+		<filter-class>filters.MemberLoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>MemberLoginFilter</filter-name>
+		<url-pattern>/front-end/shopping_system/checkout.jsp</url-pattern>
+		<url-pattern>/front-end/shopping_system/payByCard.jsp</url-pattern>
+		<url-pattern>/front-end/shopping_system/Cart.jsp</url-pattern>
+		<url-pattern>/front-end/member/front-end_listOneMember.jsp</url-pattern>
+	</filter-mapping>
+
+
+
+	<!-- ======================= 曜萱 ======================= -->
+	<servlet>
+		<servlet-name>RezServlet</servlet-name>
+		<servlet-class>com.rez.controller.RezServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>RezTimeServlet</servlet-name>
+		<servlet-class>com.rez_time.controller.RezTimeServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>RezDetailServlet</servlet-name>
+		<servlet-class>com.rez_detail.controller.RezDetailServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RezServlet</servlet-name>
+		<url-pattern>/back-end/rez/rez.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RezTimeServlet</servlet-name>
+		<url-pattern>/back-end/reztime/reztime.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RezDetailServlet</servlet-name>
+		<url-pattern>/back-end/rezdetail/rezdetail.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RezServlet</servlet-name>
+		<url-pattern>/front-end/rez/rez.do</url-pattern>
+	</servlet-mapping>
+
+
+</web-app>

@@ -1,0 +1,364 @@
+package com.shopping_system.controller;
+
+import java.util.*;
+import java.io.*;
+import java.sql.Timestamp;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import com.meal.model.*;
+import com.member.model.MemberVO;
+import com.online_order.model.*;
+import com.online_detail.model.*;
+
+public class ShoppingSystemServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		doPost(req, res);
+	}
+	
+	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		
+		req.setCharacterEncoding("UTF-8");
+		HttpSession session = req.getSession();
+		
+		@SuppressWarnings("unchecked")
+		List<OnlineDetailVO> buylist = (Vector<OnlineDetailVO>) session.getAttribute("shoppingcart");
+		
+		String action = req.getParameter("action");
+
+		
+	
+			
+			// 刪除購物車中的餐點
+			if(action.equals("DELETE")) {
+				String del = req.getParameter("del");
+				int d = Integer.parseInt(del);
+				buylist.remove(d);
+				
+				Integer total = 0;
+				for (int i = 0; i < buylist.size(); i++) {
+					OnlineDetailVO order = buylist.get(i);
+					Integer price = order.getMeal_price();
+					Integer amount = order.getMeal_amount();
+					total += (price * amount);
+				}
+				String sum = String.valueOf(total);
+				session.setAttribute("sum", sum);
+				
+				
+				session.setAttribute("shoppingcart", buylist);
+				String url = "/front-end/shopping_system/Cart.jsp";
+				RequestDispatcher rd = req.getRequestDispatcher(url);
+				rd.forward(req, res);
+			}
+			// 新增餐點至購物車中
+			if (action.equals("ADD")) {
+				// 取得新增的餐點
+				OnlineDetailVO meal = getMeal(req);
+				if (buylist == null) {
+					buylist = new Vector<OnlineDetailVO>();
+					buylist.add(meal);
+				} else {
+					if (buylist.contains(meal)) {//若新增的餐點和購物車的餐點一樣
+						OnlineDetailVO innerOnlineDetailVO = buylist.get(buylist.indexOf(meal));
+						innerOnlineDetailVO.setMeal_amount(innerOnlineDetailVO.getMeal_amount() + meal.getMeal_amount());
+					} else {
+						buylist.add(meal);
+					}
+				}
+				
+				Integer total = 0;
+				for (int i = 0; i < buylist.size(); i++) {
+					OnlineDetailVO order = buylist.get(i);
+					Integer price = order.getMeal_price();
+					Integer amount = order.getMeal_amount();
+					total += (price * amount);
+				}
+				String sum = String.valueOf(total);
+				session.setAttribute("sum", sum);
+				
+				session.setAttribute("shoppingcart", buylist);
+				String url = "/front-end/shopping_system/EShop2.jsp";
+				RequestDispatcher rd = req.getRequestDispatcher(url);
+				rd.forward(req, res);
+			}
+//			else if (action.equals("UPDATE")) {//可以修改餐點備註
+//				String upd = req.getParameter("upd");
+//				int u = Integer.parseInt(upd);
+//				String meal_note = req.getParameter("meal_note");
+//				System.out.println(meal_note);
+//				buylist.get(u).setMeal_note(meal_note);
+//			}
+
+			
+			
+			
+//			JSONArray array = new JSONArray();//json
+			// 記得改成MealService
+//			MealJDBCDAO mealSvc = new MealJDBCDAO();      //json
+//			for (OnlineDetailVO item : buylist) {
+//				JSONObject obj = new JSONObject();
+//				Integer mealno = item.getMealno();
+//				String meal_name = mealSvc.findByPrimaryKey(mealno).getMeal_name();
+//				String url = req.getContextPath() + "/MealPicServlet?id=" + mealno;
+//				String trash = req.getContextPath() + "/pic/icon/trash.svg";
+//				obj.put("meal_pic", url);
+//				obj.put("meal_name", meal_name);
+//				obj.put("mealno", mealno);
+//				obj.put("meal_amount", item.getMeal_amount());
+//				obj.put("meal_price", item.getMeal_price());
+//				obj.put("meal_set", item.getMeal_set());
+//				String meal_note = item.getMeal_note();
+				// 資料先寫死測試測試
+//				if (meal_note == null) {   //json
+//					meal_note = "";
+//				}
+//				obj.put("meal_note", meal_note);
+//				obj.put("trash", trash);
+//				array.put(obj);
+//			}
+
+//			session.setAttribute("shoppingcartJsonArray", array);    //json
+//			res.setContentType("text/plain");
+//			res.setCharacterEncoding("UTF-8");
+//			PrintWriter out = res.getWriter();
+//			out.write(array.toString());
+//			out.flush();
+//			out.close();
+
+//			String url = "/front-end/shopping_system/EShop2.jsp";
+//			RequestDispatcher rd = req.getRequestDispatcher(url);
+//			rd.forward(req, res);
+
+		
+		
+		
+		// 結帳，計算購物車餐點價錢總數
+		if (action.equals("CHECKOUT")) {
+			
+//			JSONArray array = new JSONArray();
+			
+			
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				
+				if(!(buylist==null) && buylist.size()>0) {
+					Integer total = 0;
+					for (int i = 0; i < buylist.size(); i++) {
+						OnlineDetailVO order = buylist.get(i);
+						Integer price = order.getMeal_price();
+						Integer amount = order.getMeal_amount();
+						total += (price * amount);
+					}
+					String sum = String.valueOf(total);
+					req.setAttribute("sum", sum);
+				
+				
+				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+				MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");//"setAttribute的代號"，去get，強制轉型成物件，給新名字，
+				Integer memno = memberVO.getMemno();//用這個新物件去抓資料庫的memno
+				//去取名為""參數，強制轉型後再賦予新的變數，使用此變數取得該物件屬性，存入後台取值得參數。
+				
+				String address = req.getParameter("address");
+				String addressReg = "^[(\\u4e00-\\u9fa5)(0-9)]{0,30}$";
+				if(!address.trim().matches(addressReg)) { //允許空值，空值表示外帶訂單
+//					System.out.print(3);
+					errorMsgs.add("地址只能是中文、數字，且長度必須在0到30字之間");
+				}
+				
+				java.sql.Timestamp set_time = null;
+				try {
+					set_time = java.sql.Timestamp.valueOf(req.getParameter("set_time").trim());
+				} catch (IllegalArgumentException e) {
+					set_time = new java.sql.Timestamp(System.currentTimeMillis());
+					errorMsgs.add("請輸入取餐時間");
+				}
+				
+//				Integer pay_way = null;
+//				try {
+//					pay_way = new Integer(req.getParameter("pay_way").trim());
+//				} catch(NumberFormatException e) {
+//					pay_way = 0;
+//					errorMsgs.add("請填付款方式.");
+//				}
+				Integer pay_way =new Integer(req.getParameter("pay_way"));
+				System.out.println(pay_way);
+				
+				
+				OnlineOrderVO onlineOrderVO = new OnlineOrderVO();
+				onlineOrderVO.setMemno(memno);
+				onlineOrderVO.setAddress(address);
+				onlineOrderVO.setSet_time(set_time);
+				onlineOrderVO.setPay_way(pay_way);
+				
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("onlineOrderVO", onlineOrderVO); // 含有輸入格式錯誤的onlineOrderVO物件,也存入req
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/shopping_system/Cart.jsp");
+					failureView.forward(req, res);
+					return; //程式中斷
+				}
+				//假資料=======================================
+				Integer empno = 2;
+				Integer pay_status = 0;
+				Integer meal_status = 0;
+				
+				/***************************2.開始新增資料*****************************************/
+				OnlineOrderService onlineOrderSvc = new OnlineOrderService();
+				OnlineDetailService svc = new OnlineDetailService();
+				
+
+
+				
+//				Integer empno = (Integer) session.getAttribute("empno");
+//				if (empno==null) {
+//					empno = 1;
+//				}
+//				session.setAttribute("empno", empno);
+//				
+//				
+////			Integer empno = new Integer(session.getAttribute(empno).trim());
+//				Integer memno = new Integer(session.getAttribute(memno).trim());
+//				Integer pay_status = new Integer(session.getAttribute(pay_status).trim());
+//				String address = new String(session.getAttribute(address).trim());
+//				Timestamp set_time = new java.sql.Timestamp(System.currentTimeMillis());
+//				Timestamp create_time = new Timestamp(System.currentTimeMillis());
+//				Integer pay_way = new Integer(session.getAttribute(pay_way).trim());
+				
+				
+				
+//				String olnoStr = (String) session.getAttribute("olno"); //json
+//				session.removeAttribute("olno");
+//				System.out.println(olnoStr);
+				
+//				if (olnoStr == null) {
+				
+				
+				
+				// 新增訂單同時，取得新增的內用訂單編號
+				if(pay_way == 0) { //貨到付款後續處理
+					onlineOrderSvc.addOrderWithDetail(empno, memno, pay_status, address, set_time, total, pay_way,
+							buylist);
+					
+					session.removeAttribute("shoppingcart");
+					session.removeAttribute("sum");
+					
+					String url = "/front-end/shopping_system/Checkout.jsp";
+					RequestDispatcher rd = req.getRequestDispatcher(url);
+					rd.forward(req, res);
+					
+				} else if(pay_way ==1) {//信用卡付款後續處理
+				    session.setAttribute("onlineOrderVO", onlineOrderVO);
+				    
+				    
+				    
+				    String url = "/front-end/shopping_system/payByCard.jsp";
+					RequestDispatcher rd = req.getRequestDispatcher(url);
+					rd.forward(req, res);
+					
+				}
+//					Integer olno = onlineOrderSvc.addOrderWithDetail(empno, memno, pay_status, address, set_time, total, pay_way,
+//							buylist);
+//					array = (JSONArray) session.getAttribute("shoppingcartJsonArray");
+//					for (int i = 0; i < array.length(); i++) {
+//						array.getJSONObject(i).put("olno", olno);
+//						array.getJSONObject(i).put("memno", memno);
+//						array.getJSONObject(i).put("pay_status", pay_status);
+//						array.getJSONObject(i).put("meal_status", meal_status);
+//						array.getJSONObject(i).put("pay_way", pay_way);
+//						array.getJSONObject(i).put("empno", empno);
+//						array.getJSONObject(i).put("CMS", svc.getCMS(olno));
+//					}
+//				}
+//				else { //線上訂單不會有在訂單內加點的問題，而是直接成立另一張新的訂單
+//					// 加點
+//					Integer addMealLiveno = new Integer(livenoStr);
+//					for (LiveDetailVO item : buylist) {
+//						item.setMeal_set(item.getMeal_set()+100);
+//						item.setMeal_status(0);
+//						System.out.println(item.getMeal_set());
+//						svc.addOrderDetail(addMealLiveno, item.getMealno(), item.getMeal_amount(), item.getMeal_price(),
+//								item.getMeal_set());
+//
+//					}
+//
+//					array = (JSONArray) session.getAttribute("shoppingcartJsonArray");
+//					for (int i = 0; i < array.length(); i++) {
+//						array.getJSONObject(i).put("liveno", addMealLiveno);
+//						array.getJSONObject(i).put("tableno", tableno);
+//						array.getJSONObject(i).put("pay_status", pay_status);
+//						array.getJSONObject(i).put("meal_status", meal_status);
+//						array.getJSONObject(i).put("pay_way", pay_way);
+//						array.getJSONObject(i).put("empno", empno);
+//						array.getJSONObject(i).put("CMS", svc.getCMS(addMealLiveno));
+//					}
+//				}
+					
+//				String sum = String.valueOf(total);
+//				req.setAttribute("sum", sum);
+			}
+			
+
+			
+//			/***************************3.新增完成,準備轉交(Send the Success view)***********/
+
+				
+//			session.removeAttribute("shoppingcart");
+//			session.removeAttribute("shoppingcartJsonArray");
+//			
+//			res.setContentType("text/plain");
+//			res.setCharacterEncoding("UTF-8");
+//			PrintWriter out = res.getWriter();
+//			out.write(array.toString());
+//			out.flush();
+//			out.close();
+		
+
+			
+		} catch(Exception e) {
+			errorMsgs.add(e.getMessage());
+			RequestDispatcher failureView = req
+					.getRequestDispatcher("/front-end/shopping_system/Cart.jsp");
+			failureView.forward(req, res);
+		}
+		}
+		
+		if ("confirm".equals(action)) {
+			session.removeAttribute("shoppingcart");
+			String url = "/front-end/shopping_system/EShop2.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); 
+			successView.forward(req, res);
+			return;
+			}
+		
+	}
+		
+		private OnlineDetailVO getMeal(HttpServletRequest req) {
+			
+			String mealno = req.getParameter("mealno");
+			String meal_amount = req.getParameter("meal_amount");
+			String meal_price = req.getParameter("meal_price");
+			String meal_set = req.getParameter("meal_set");
+			String meal_status = req.getParameter("meal_status");
+			
+			OnlineDetailVO meal = new OnlineDetailVO();
+			System.out.println(meal_price);
+			meal.setMealno(Integer.parseInt(mealno));
+			meal.setMeal_amount(Integer.parseInt(meal_amount));
+			meal.setMeal_price(Integer.parseInt(meal_price));
+			meal.setMeal_set(Integer.parseInt(meal_set));
+			meal.setMeal_status(Integer.parseInt(meal_status));
+			return meal;
+		
+	}
+}

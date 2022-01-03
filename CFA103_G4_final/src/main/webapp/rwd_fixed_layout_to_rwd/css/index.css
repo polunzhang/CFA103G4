@@ -1,0 +1,73 @@
+@import "./common/all.css";
+@import "./common/header.css";
+@import "./common/footer.css";
+@import "./common/banner.css";
+
+div.main_container{
+  width: 768px;
+  font-size: 0;
+  margin: 0 auto;
+}
+
+aside.aside, main.main{
+  display: inline-block;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+/* 側邊欄 */
+aside.aside{
+  width: 200px;
+  margin-right: 20px;
+  vertical-align: top;
+  text-align: center;
+}
+
+div.avatar_block{
+  position: relative;
+  top: -75px;
+}
+div.avatar_block div.img_block{
+  font-size: 0;
+  width: 150px;
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 50%;
+  overflow: hidden;
+}
+div.avatar_block div.img_block img{
+  max-width: 100%;
+}
+span.name_span{
+  font-size: 1rem;
+  display: block;
+  margin-top: 10px;
+}
+
+
+/* 主內容 */
+main.main{
+  width: calc(100% - 200px - 20px);
+  vertical-align: top;
+  padding-bottom: 50px;
+}
+
+
+table.table{
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin-bottom: 100px;
+}
+table.table td{
+  border: 1px solid black;
+  padding: 10px;
+}
+
+h1.title1{
+  margin: 30px 0;
+  font-size: 1.5rem;
+}
+
+ul.expirence_list > li{
+  margin-bottom: 10px;
+}

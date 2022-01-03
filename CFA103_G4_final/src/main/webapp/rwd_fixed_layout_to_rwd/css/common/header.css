@@ -1,0 +1,95 @@
+header.header{
+  width: 768px;
+  margin: 0 auto;
+  font-size: 0;
+}
+header.header a.logo_img{
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 20px;
+}
+header.header a.logo_img img{
+  height: 50px;
+}
+header.header nav.nav{
+  display: inline-block;
+  vertical-align: middle;
+}
+header.header nav.nav ul.link_list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+header.header nav.nav ul.link_list > li{
+  display: inline-block;
+}
+header.header nav.nav ul.link_list > li > a{
+  display: inline-block;
+  font-size: 1rem;
+  text-decoration: none;
+  padding: 14px 10px;
+  min-width: 100px;
+  text-align: center;
+}
+header.header nav.nav ul.link_list > li > a.-on{
+  background-color: blue;
+  color: white;
+}
+header.header nav.nav ul.link_list > li > a:hover{
+  background-color: blue;
+  color: white;
+}
+
+header.header nav.nav ul.link_list > li div.social_block{
+  font-size: 1rem;
+  position: relative;
+  padding: 13px 0;
+  box-sizing: border-box;
+  min-width: 100px;
+  text-align: center;
+}
+header.header nav.nav ul.link_list > li div.social_block:hover ul.social_list{
+  display: block;
+}
+header.header nav.nav ul.link_list > li div.social_block ul.social_list{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: absolute;
+  right: 0;
+  top: 48px;
+  background-color: white;
+  min-width: 100%;
+  display: none;
+  border: 1px solid black;
+}
+header.header nav.nav ul.link_list > li div.social_block ul.social_list > li{
+
+}
+
+header.header nav.nav ul.link_list > li div.social_block ul.social_list > li a{
+  font-size: 1rem;
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+  padding: 10px 0;
+
+  position: relative;
+}
+header.header nav.nav ul.link_list > li div.social_block ul.social_list > li a::after{
+  content: "";
+  position: absolute;
+  width: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  height: 1px;
+  background-color: gray;
+}
+header.header nav.nav ul.link_list > li div.social_block ul.social_list > li:last-child a::after{
+  height: 0;
+}
+header.header nav.nav ul.link_list > li div.social_block ul.social_list > li a:hover{
+  background-color: black;
+  color: white;
+}

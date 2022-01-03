@@ -1,0 +1,164 @@
+* {
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.preview {
+	position: absolute;
+	top: 3.5%;
+	left: 12.5%;
+	z-index: 1;
+	width: 87.5%;
+	height: 94%;
+	padding: 15px;
+	/* 	border: 2px solid red; */
+}
+
+.container {
+	display: inline-block;
+	text-align: center;
+	position: relative;
+}
+
+.mealButton {
+	width: 200px;
+	height: 200px;
+	object-fit: cover;
+	flex: 1;
+	border: 2px solid transparent;
+	border-radius: 25px;
+}
+
+.showMealPic {
+	width: 60px;
+	height: 60px;
+	object-fit: cover;
+	flex: 1;
+}
+
+.mealButton:hover {
+	filter: sepia(0) blur(0px);
+	border: 2px solid black;
+	box-shadow: 0 0 2px 2px gray;
+	cursor: pointer;
+}
+
+.meal_name {
+	position: absolute;
+	left: 5px;
+	top: 170px;
+	color: #fff;
+	line-height: 20px;
+	font-size: 16px;
+	background-color: rgba(0, 0, 0, 0.3);
+	overflow: visible;
+}
+
+.meal_price {
+	position: absolute;
+	left: 5px;
+	top: 150px;
+	line-height: 20px;
+	color: #fff;
+	font-size: 20px;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.button_delete {
+	width: 20px;
+	height: 20px;
+}
+
+.button_delete:hover {
+	cursor: pointer;
+}
+
+#cart {
+	overflow: hidden;
+	background: url("../pic/cart-background.png") no-repeat center;
+	background-size: 100% 100%;
+	position: absolute;
+	display: none;
+	bottom: 5%;
+	right: 0.5%;
+	z-index: 2;
+	height: 75%;
+	vertical-align: middle;
+	text-align: center;
+	right: 0.5%;
+	position: absolute;
+	display: none;
+	bottom: 5%;
+	right: 0.5%;
+	z-index: 2;
+	height: 75%;
+	vertical-align: middle;
+	text-align: center;
+	width: 30%;
+}
+
+#cart-table {
+	position: relative;
+	margin: 20px auto;
+	max-height: 720px;
+}
+
+#cart-table td {
+	border: 2px solid pink;
+	border-radius: 5%;
+	text-align: center;
+	vertical-align: middle;
+	margin: 0 auto;
+}
+
+#button_check {
+	width: 50px;
+	display: inline-block;
+	position: absolute;
+	bottom: 10px;
+}
+
+#button_check:hover {
+	cursor: pointer;
+}
+
+#cart-button {
+	position: fixed;
+	bottom: 50px;
+	right: 50px;
+	border-radius: 50px;
+	width: 70px;
+	height: 70px;
+	line-height: 70px;
+	vertical-align: middle;
+	text-align: center;
+	z-index: 1;
+}
+
+#cart-button:hover {
+	cursor: pointer;
+}
+
+#cart-button.hide {
+	display: none;
+}
+
+#cart-button img {
+	margin: auto;
+	vertical-align: middle;
+}
+
+#showListCount {
+	z-index: 1;
+	position: absolute;
+	bottom: 110px;
+	right: 50px;
+	color: white;
+	background: red;
+	font-size: 20px;
+	font-weight: bolder;
+	border-radius: 50%;
+	text-align: center;
+	width: 30px;
+	hieght: 30px;
+}

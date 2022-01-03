@@ -1,0 +1,122 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<title>Document</title>
+
+<style type="text/css">
+@import
+	url("https://fonts.googleapis.com/css?family=Rajdhani:300&display=swap")
+	;
+
+body, html {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.main *{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top:0;
+	left:0;
+	background-image: url("<%=request.getContextPath()%>/back-end/meal/pic/images/9739.jpg_wh860.jpg");
+	background-size: cover;
+	background-position: center;
+	font-family: "Rajdhani", sans-serif;
+}
+
+*, *:before, *:after {
+	box-sizing: border-box;
+}
+
+.glass {
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	top:0;
+	left:0;
+	background-image: url("<%=request.getContextPath()%>/back-end/meal/pic/images/9739.jpg_wh860.jpg");
+	background-size: cover;
+	background-position: center;
+	-webkit-clip-path: inset(0em 2.5em 0em 12.5em);
+	filter: blur(10px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background:rgba(255,255,255,0.9);
+}
+
+.drop-shadow {
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	filter: drop-shadow(0px 20px 10px rgba(0, 0, 0, 0.3));
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.drop-shadow:before {
+	display: block;
+	content: "";
+	position: fixed;
+	top: 2em;
+	left: 12.5em;
+	height: 94%;
+	width: 87.5%;
+	border-top: 2px solid rgba(225, 225, 225, 0.2);
+	border-left: 1px solid rgba(225, 225, 225, 0.1);
+	border-right: 1px solid rgba(225, 225, 225, 0.3);
+	z-index: 2;
+}
+
+.drop-shadow>span {
+	position: fixed;
+	z-index: 5;
+	color: white;
+	font-size: 4em;
+	letter-spacing: 0.75em;
+	padding-left: 0.375em;
+}
+
+@media ( max-width : 980px) {
+	.glass {
+		-webkit-clip-path: inset(5em);
+		clip-path: inset(5em);
+	}
+	.drop-shadow:before {
+		position: fixed;
+		top: 5em;
+		width: calc(100% - 10em);
+	}
+	.drop-shadow>span {
+		font-size: 4em;
+	}
+}
+
+@media ( max-width : 640px) {
+	.drop-shadow>span {
+		font-size: 2em;
+	}
+}
+</style>
+</head>
+<body>
+
+<div class="main">
+	<div class="drop-shadow">
+		<div class="glass"></div>
+		<span></span>
+	</div>
+</div>
+
+
+</body>
+</html>
